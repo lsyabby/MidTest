@@ -180,6 +180,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Video Player" id="U34-JM-iDQ"/>
                     <connections>
+                        <outlet property="backwardBtn" destination="qla-h1-ABo" id="g6q-c3-B7e"/>
+                        <outlet property="forwardBtn" destination="108-za-mPv" id="QnQ-XI-HGF"/>
                         <outlet property="fullScreenBtn" destination="g5u-uM-B7Y" id="PNl-hF-ntr"/>
                         <outlet property="playBtn" destination="N5J-XY-OlJ" id="nUI-tb-n80"/>
                         <outlet property="playSlider" destination="tay-Ie-ElC" id="tw0-Kt-REw"/>

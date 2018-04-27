@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var volBtn: UIButton!
     @IBOutlet weak var fullScreenBtn: UIButton!
+    @IBOutlet weak var forwardBtn: UIButton!
+    @IBOutlet weak var backwardBtn: UIButton!
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
     
@@ -106,6 +108,7 @@ class ViewController: UIViewController {
     // !!!!!!!!!!!!!!!
     @IBAction func fullScreenAction(_ sender: UIButton) {
         if fullScreenBtn.isSelected {
+            
             playerLayer.frame = videoView.bounds
 //            playerLayer.videoGravity = .resize
 //            videoView.layer.addSublayer(playerLayer)
@@ -153,6 +156,22 @@ class ViewController: UIViewController {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         if (UIDevice.current.orientation.isLandscape) {
             DispatchQueue.main.async {
+                self.navigationController?.setNavigationBarHidden(true, animated: false)
+                self.videoUrlTextField.isHidden = true
+                self.searchBtn.isHidden = true
+                self.videoView.backgroundColor = UIColor.black
+                self.timeStartLabel.textColor = UIColor.white
+                self.timeEndLabel.textColor = UIColor.white
+                self.playBtn.setImage(#imageLiteral(resourceName: "play_button").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.playBtn.tintColor = .white
+                self.forwardBtn.setImage(#imageLiteral(resourceName: "fast_forward").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.forwardBtn.tintColor = .white
+                self.backwardBtn.setImage(#imageLiteral(resourceName: "rewind").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.backwardBtn.tintColor = .white
+                self.fullScreenBtn.setImage(#imageLiteral(resourceName: "full_screen_button").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.fullScreenBtn.tintColor = .white
+                self.volBtn.setImage(#imageLiteral(resourceName: "volume_up").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.volBtn.tintColor = .white
                 self.view.didAddSubview(self.videoView)
                 self.playerLayer = AVPlayerLayer(player: self.player)
                 self.playerLayer.frame = self.videoView.bounds
@@ -164,6 +183,22 @@ class ViewController: UIViewController {
         } else {
             print("Device is portrait")
             DispatchQueue.main.async {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.videoUrlTextField.isHidden = false
+                self.searchBtn.isHidden = false
+                self.videoView.backgroundColor = UIColor.clear
+                self.timeStartLabel.textColor = UIColor.black
+                self.timeEndLabel.textColor = UIColor.black
+                self.playBtn.setImage(#imageLiteral(resourceName: "play_button").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.playBtn.tintColor = .black
+                self.forwardBtn.setImage(#imageLiteral(resourceName: "fast_forward").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.forwardBtn.tintColor = .black
+                self.backwardBtn.setImage(#imageLiteral(resourceName: "rewind").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.backwardBtn.tintColor = .black
+                self.fullScreenBtn.setImage(#imageLiteral(resourceName: "full_screen_button").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.fullScreenBtn.tintColor = .black
+                self.volBtn.setImage(#imageLiteral(resourceName: "volume_up").withRenderingMode(.alwaysTemplate), for: .normal)
+                self.volBtn.tintColor = .black
                 self.playerLayer.removeFromSuperlayer()
                 self.playerLayer.frame = self.videoView.bounds
                 self.view.reloadInputViews()
