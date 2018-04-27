@@ -33,18 +33,6 @@ class ViewController: UIViewController {
         searchBtn.layer.borderColor = UIColor.lightGray.cgColor
         playSlider.tintColor = UIColor.purple
         playSlider.value = 0
-        
-//        let url = URL(string: "https://s3-ap-northeast-1.amazonaws.com/mid-exam/Video/taeyeon.mp4")!
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        player.play()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-//        playerLayer.frame = videoView.bounds
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,7 +93,6 @@ class ViewController: UIViewController {
         volBtn.isSelected = !volBtn.isSelected
     }
     
-    
     // !!!!!!!!!!!!!!!
     @IBAction func fullScreenAction(_ sender: UIButton) {
         if fullScreenBtn.isSelected {
@@ -155,7 +142,6 @@ class ViewController: UIViewController {
         })
     }
     
-    
     // !!!!!!!!!!!!!!!
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         if (UIDevice.current.orientation.isLandscape) {
@@ -164,73 +150,58 @@ class ViewController: UIViewController {
                 self.videoUrlTextField.isHidden = true
                 self.searchBtn.isHidden = true
                 self.videoView.backgroundColor = UIColor.black
-                self.timeStartLabel.textColor = UIColor.white
-                self.timeEndLabel.textColor = UIColor.white
                 self.videoPlaceholder.textColor = UIColor.white
-                self.playBtn.setImage(#imageLiteral(resourceName: "play_button").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.playBtn.tintColor = .white
-                self.forwardBtn.setImage(#imageLiteral(resourceName: "fast_forward").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.forwardBtn.tintColor = .white
-                self.backwardBtn.setImage(#imageLiteral(resourceName: "rewind").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.backwardBtn.tintColor = .white
-                self.fullScreenBtn.setImage(#imageLiteral(resourceName: "full_screen_button").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.fullScreenBtn.tintColor = .white
-                self.volBtn.setImage(#imageLiteral(resourceName: "volume_up").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.volBtn.tintColor = .white
+                self.setControlBtn(color: .white)
                 self.view.didAddSubview(self.videoView)
                 self.playerLayer = AVPlayerLayer(player: self.player)
                 self.playerLayer.frame = self.videoView.bounds
-                self.playerLayer.videoGravity = .resize
+                self.playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
                 self.view.layer.addSublayer(self.playerLayer)
-                self.view.reloadInputViews()
             }
-            print("Device is landscape")
         } else {
-            print("Device is portrait")
             DispatchQueue.main.async {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
                 self.videoUrlTextField.isHidden = false
                 self.searchBtn.isHidden = false
                 self.videoView.backgroundColor = UIColor.clear
-                self.timeStartLabel.textColor = UIColor.black
-                self.timeEndLabel.textColor = UIColor.black
                 self.videoPlaceholder.textColor = UIColor.lightGray
-                self.playBtn.setImage(#imageLiteral(resourceName: "play_button").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.playBtn.tintColor = .black
-                self.forwardBtn.setImage(#imageLiteral(resourceName: "fast_forward").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.forwardBtn.tintColor = .black
-                self.backwardBtn.setImage(#imageLiteral(resourceName: "rewind").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.backwardBtn.tintColor = .black
-                self.fullScreenBtn.setImage(#imageLiteral(resourceName: "full_screen_button").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.fullScreenBtn.tintColor = .black
-                self.volBtn.setImage(#imageLiteral(resourceName: "volume_up").withRenderingMode(.alwaysTemplate), for: .normal)
-                self.volBtn.tintColor = .black
+                self.setControlBtn(color: .black)
                 self.playerLayer.removeFromSuperlayer()
-                self.playerLayer.frame = self.videoView.bounds
-                self.view.reloadInputViews()
             }
         }
     }
     
+    func setControlBtn(color: UIColor) {
+        self.timeStartLabel.textColor = color
+        self.timeEndLabel.textColor = color
+        self.playBtn.setImage(#imageLiteral(resourceName: "play_button").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.playBtn.tintColor = color
+        self.forwardBtn.setImage(#imageLiteral(resourceName: "fast_forward").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.forwardBtn.tintColor = color
+        self.backwardBtn.setImage(#imageLiteral(resourceName: "rewind").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.backwardBtn.tintColor = color
+        self.fullScreenBtn.setImage(#imageLiteral(resourceName: "full_screen_button").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.fullScreenBtn.tintColor = color
+        self.volBtn.setImage(#imageLiteral(resourceName: "volume_up").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.volBtn.tintColor = color
+    }
 }
 
 
 extension CGAffineTransform {
-    static let ninetyDegreeRotation = CGAffineTransform(rotationAngle: CGFloat(M_PI / 2))
+    static let ninetyDegreeRotation = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
 }
 
 extension AVPlayerLayer {
     var fullScreenAnimationDuration: TimeInterval {
         return 0.15
     }
-    
     func minimizeToFrame(_ frame: CGRect) {
         UIView.animate(withDuration: fullScreenAnimationDuration) {
             self.setAffineTransform(.identity)
             self.frame = frame
         }
     }
-    
     func goFullscreen(_ frame: CGRect) {
         UIView.animate(withDuration: fullScreenAnimationDuration) {
             self.setAffineTransform(.ninetyDegreeRotation)
@@ -238,35 +209,4 @@ extension AVPlayerLayer {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
