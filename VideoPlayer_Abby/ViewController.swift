@@ -109,13 +109,17 @@ class ViewController: UIViewController {
     // !!!!!!!!!!!!!!!
     @IBAction func fullScreenAction(_ sender: UIButton) {
         if fullScreenBtn.isSelected {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            UIApplication.shared.isStatusBarHidden = false
+            self.videoUrlTextField.isHidden = false
+            self.searchBtn.isHidden = false
             playerLayer.minimizeToFrame(CGRect(x: 0, y: 0, width: self.view.frame.width, height: 211))
         } else {
-            playerLayer.goFullscreen(CGRect(x: 0, y: -237, width: self.view.frame.width, height: self.view.frame.height))
-            
-//            playerLayer.frame = videoView.bounds
-//            playerLayer.videoGravity = .resize
-//            videoView.layer.addSublayer(playerLayer)
+            self.navigationController?.setNavigationBarHidden(true, animated: false)
+            UIApplication.shared.isStatusBarHidden = true
+            self.videoUrlTextField.isHidden = true
+            self.searchBtn.isHidden = true
+            playerLayer.goFullscreen(CGRect(x: 0, y: -251.5, width: self.view.frame.width, height: self.view.frame.height))
         }
         fullScreenBtn.isSelected = !fullScreenBtn.isSelected
     }
