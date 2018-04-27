@@ -13,10 +13,15 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var videoUrlTextField: UITextField!
     @IBOutlet weak var videoView: UIView!
+    @IBOutlet weak var playSlider: UISlider!
+    @IBOutlet weak var timeStartLabel: UILabel!
+    @IBOutlet weak var timeEndLabel: UILabel!
+    @IBOutlet weak var playBtn: UIButton!
+    @IBOutlet weak var volBtn: UIButton!
+    @IBOutlet weak var fullScreenBtn: UIButton!
     
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
-    var isVideoPlay = false
     
     
     override func viewDidLoad() {
@@ -62,12 +67,12 @@ class ViewController: UIViewController {
     
     
     @IBAction func playAction(_ sender: UIButton) {
-        if isVideoPlay {
+        if playBtn.isSelected {
             player.pause()
         } else {
             player.play()
-            
         }
+        playBtn.isSelected = !playBtn.isSelected
     }
     
     @IBAction func forwardAction(_ sender: Any) {
@@ -90,6 +95,24 @@ class ViewController: UIViewController {
         player.seek(to: time)
     }
     
-
+    @IBAction func playSliderAction(_ sender: Any) {
+        playSlider.minimumValue = 0
+//
+//        let duration = pl
+    }
+ 
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
 

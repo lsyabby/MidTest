@@ -75,6 +75,7 @@
                                             <constraint firstAttribute="width" constant="24" id="jOb-9O-BQ4"/>
                                         </constraints>
                                         <state key="normal" image="play_button"/>
+                                        <state key="selected" image="stop"/>
                                         <connections>
                                             <action selector="playAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Obk-lJ-fc6"/>
                                         </connections>
@@ -120,15 +121,41 @@
                                     <constraint firstItem="g5u-uM-B7Y" firstAttribute="baseline" secondItem="48i-6w-nzU" secondAttribute="baseline" id="vbn-Cr-tkw"/>
                                 </constraints>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FxB-MF-SHp">
+                                <rect key="frame" x="10" y="553" width="355" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeSTART" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cd1-Dj-Mzm">
+                                        <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tay-Ie-ElC">
+                                        <rect key="frame" x="93" y="0.0" width="186.5" height="31"/>
+                                        <connections>
+                                            <action selector="playSliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="ZD4-P7-tRq"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeEND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVt-W1-3Yh">
+                                        <rect key="frame" x="287.5" y="0.0" width="67.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="MHX-rm-rLE" firstAttribute="top" secondItem="FxB-MF-SHp" secondAttribute="bottom" constant="30" id="0Ff-nn-srF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MHX-rm-rLE" secondAttribute="bottom" constant="30" id="36e-5X-eeY"/>
                             <constraint firstItem="Zse-b5-AA1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="9Ud-HN-Usr"/>
+                            <constraint firstItem="FxB-MF-SHp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="D7D-E1-IkH"/>
                             <constraint firstItem="JO2-mm-npj" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="P0m-Vy-0b4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JO2-mm-npj" secondAttribute="trailing" constant="10" id="Rif-BZ-YEW"/>
                             <constraint firstItem="JO2-mm-npj" firstAttribute="leading" secondItem="Zse-b5-AA1" secondAttribute="trailing" constant="10" id="WfE-9T-fj9"/>
                             <constraint firstItem="MHX-rm-rLE" firstAttribute="centerX" secondItem="8ke-CS-efV" secondAttribute="centerX" id="YER-uO-Jqv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FxB-MF-SHp" secondAttribute="trailing" constant="10" id="fJK-2S-kXm"/>
                             <constraint firstItem="8ke-CS-efV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="isM-BV-foQ"/>
                             <constraint firstItem="8ke-CS-efV" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lyn-Qp-kX2"/>
                             <constraint firstItem="Zse-b5-AA1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="tn2-LM-zLd"/>
@@ -138,8 +165,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="Video Player" id="U34-JM-iDQ"/>
                     <connections>
+                        <outlet property="fullScreenBtn" destination="g5u-uM-B7Y" id="PNl-hF-ntr"/>
+                        <outlet property="playBtn" destination="N5J-XY-OlJ" id="nUI-tb-n80"/>
+                        <outlet property="playSlider" destination="tay-Ie-ElC" id="tw0-Kt-REw"/>
+                        <outlet property="timeEndLabel" destination="qVt-W1-3Yh" id="e8d-7u-Vos"/>
+                        <outlet property="timeStartLabel" destination="cd1-Dj-Mzm" id="DgP-Yw-o7u"/>
                         <outlet property="videoUrlTextField" destination="Zse-b5-AA1" id="kEC-ac-zWp"/>
                         <outlet property="videoView" destination="8ke-CS-efV" id="7tJ-k3-ImY"/>
+                        <outlet property="volBtn" destination="48i-6w-nzU" id="e8V-Vx-VnQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -175,6 +208,7 @@
         <image name="full_screen_exit" width="12" height="12"/>
         <image name="play_button" width="12" height="12"/>
         <image name="rewind" width="12" height="12"/>
+        <image name="stop" width="12" height="12"/>
         <image name="volume_off" width="12" height="12"/>
         <image name="volume_up" width="12" height="12"/>
     </resources>
