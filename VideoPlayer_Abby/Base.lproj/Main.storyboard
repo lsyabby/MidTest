@@ -188,6 +188,7 @@
                         <outlet property="searchBtn" destination="JO2-mm-npj" id="gq8-sh-Cd6"/>
                         <outlet property="timeEndLabel" destination="qVt-W1-3Yh" id="e8d-7u-Vos"/>
                         <outlet property="timeStartLabel" destination="cd1-Dj-Mzm" id="DgP-Yw-o7u"/>
+                        <outlet property="videoPlaceholder" destination="XZs-Q9-6K3" id="G6Q-ez-2KN"/>
                         <outlet property="videoUrlTextField" destination="Zse-b5-AA1" id="kEC-ac-zWp"/>
                         <outlet property="videoView" destination="8ke-CS-efV" id="7tJ-k3-ImY"/>
                         <outlet property="volBtn" destination="48i-6w-nzU" id="e8V-Vx-VnQ"/>

@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var fullScreenBtn: UIButton!
     @IBOutlet weak var forwardBtn: UIButton!
     @IBOutlet weak var backwardBtn: UIButton!
+    @IBOutlet weak var videoPlaceholder: UILabel!
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
     
@@ -108,14 +109,13 @@ class ViewController: UIViewController {
     // !!!!!!!!!!!!!!!
     @IBAction func fullScreenAction(_ sender: UIButton) {
         if fullScreenBtn.isSelected {
+            playerLayer.minimizeToFrame(CGRect(x: 0, y: 0, width: self.view.frame.width, height: 211))
+        } else {
+            playerLayer.goFullscreen(CGRect(x: 0, y: -237, width: self.view.frame.width, height: self.view.frame.height))
             
-            playerLayer.frame = videoView.bounds
+//            playerLayer.frame = videoView.bounds
 //            playerLayer.videoGravity = .resize
 //            videoView.layer.addSublayer(playerLayer)
-        } else {
-            playerLayer.frame = videoView.bounds
-            playerLayer.videoGravity = .resize
-            videoView.layer.addSublayer(playerLayer)
         }
         fullScreenBtn.isSelected = !fullScreenBtn.isSelected
     }
@@ -162,6 +162,7 @@ class ViewController: UIViewController {
                 self.videoView.backgroundColor = UIColor.black
                 self.timeStartLabel.textColor = UIColor.white
                 self.timeEndLabel.textColor = UIColor.white
+                self.videoPlaceholder.textColor = UIColor.white
                 self.playBtn.setImage(#imageLiteral(resourceName: "play_button").withRenderingMode(.alwaysTemplate), for: .normal)
                 self.playBtn.tintColor = .white
                 self.forwardBtn.setImage(#imageLiteral(resourceName: "fast_forward").withRenderingMode(.alwaysTemplate), for: .normal)
@@ -189,6 +190,7 @@ class ViewController: UIViewController {
                 self.videoView.backgroundColor = UIColor.clear
                 self.timeStartLabel.textColor = UIColor.black
                 self.timeEndLabel.textColor = UIColor.black
+                self.videoPlaceholder.textColor = UIColor.lightGray
                 self.playBtn.setImage(#imageLiteral(resourceName: "play_button").withRenderingMode(.alwaysTemplate), for: .normal)
                 self.playBtn.tintColor = .black
                 self.forwardBtn.setImage(#imageLiteral(resourceName: "fast_forward").withRenderingMode(.alwaysTemplate), for: .normal)
@@ -209,7 +211,29 @@ class ViewController: UIViewController {
 }
 
 
+extension CGAffineTransform {
+    static let ninetyDegreeRotation = CGAffineTransform(rotationAngle: CGFloat(M_PI / 2))
+}
 
+extension AVPlayerLayer {
+    var fullScreenAnimationDuration: TimeInterval {
+        return 0.15
+    }
+    
+    func minimizeToFrame(_ frame: CGRect) {
+        UIView.animate(withDuration: fullScreenAnimationDuration) {
+            self.setAffineTransform(.identity)
+            self.frame = frame
+        }
+    }
+    
+    func goFullscreen(_ frame: CGRect) {
+        UIView.animate(withDuration: fullScreenAnimationDuration) {
+            self.setAffineTransform(.ninetyDegreeRotation)
+            self.frame = frame
+        }
+    }
+}
 
 
 
