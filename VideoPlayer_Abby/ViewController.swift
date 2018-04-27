@@ -20,10 +20,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var volBtn: UIButton!
     @IBOutlet weak var fullScreenBtn: UIButton!
-    
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +48,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
     @IBAction func searchButtonAction(_ sender: UIButton) {
         let url = URL(string: videoUrlTextField.text!)!
@@ -61,9 +58,7 @@ class ViewController: UIViewController {
         playerLayer.frame = videoView.bounds
         playerLayer.videoGravity = .resize
         videoView.layer.addSublayer(playerLayer)
-//        player.play()
     }
-    
     
     @IBAction func playAction(_ sender: UIButton) {
         if playBtn.isSelected {
@@ -98,6 +93,15 @@ class ViewController: UIViewController {
         player.seek(to: CMTimeMake(Int64(sender.value*1000), 1000))
     }
     
+    @IBAction func muteAction(_ sender: UIButton) {
+        if volBtn.isSelected {
+            player.isMuted = false
+        } else {
+            player.isMuted = true
+        }
+        volBtn.isSelected = !volBtn.isSelected
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "duration", let duration = player.currentItem?.duration.seconds, duration > 0.0 {
             self.timeEndLabel.text = getTimeString(from: player.currentItem!.duration)
@@ -126,6 +130,10 @@ class ViewController: UIViewController {
             self?.playSlider.value = Float(currentItem.currentTime().seconds)
             self?.timeStartLabel.text = self?.getTimeString(from: currentItem.currentTime())
         })
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        
     }
     
 }
