@@ -102,6 +102,22 @@ class ViewController: UIViewController {
         volBtn.isSelected = !volBtn.isSelected
     }
     
+    
+    // !!!!!!!!!!!!!!!
+    @IBAction func fullScreenAction(_ sender: UIButton) {
+        if fullScreenBtn.isSelected {
+            playerLayer.frame = videoView.bounds
+//            playerLayer.videoGravity = .resize
+//            videoView.layer.addSublayer(playerLayer)
+        } else {
+            playerLayer.frame = videoView.bounds
+            playerLayer.videoGravity = .resize
+            videoView.layer.addSublayer(playerLayer)
+        }
+        fullScreenBtn.isSelected = !fullScreenBtn.isSelected
+    }
+    
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "duration", let duration = player.currentItem?.duration.seconds, duration > 0.0 {
             self.timeEndLabel.text = getTimeString(from: player.currentItem!.duration)
@@ -132,8 +148,27 @@ class ViewController: UIViewController {
         })
     }
     
+    
+    // !!!!!!!!!!!!!!!
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        
+        if (UIDevice.current.orientation.isLandscape) {
+            DispatchQueue.main.async {
+                self.view.didAddSubview(self.videoView)
+                self.playerLayer = AVPlayerLayer(player: self.player)
+                self.playerLayer.frame = self.videoView.bounds
+                self.playerLayer.videoGravity = .resize
+                self.view.layer.addSublayer(self.playerLayer)
+                self.view.reloadInputViews()
+            }
+            print("Device is landscape")
+        } else {
+            print("Device is portrait")
+            DispatchQueue.main.async {
+                self.playerLayer.removeFromSuperlayer()
+                self.playerLayer.frame = self.videoView.bounds
+                self.view.reloadInputViews()
+            }
+        }
     }
     
 }
